@@ -1,3 +1,7 @@
+(function() {
+    let childProcess = require("child_process");
+    childProcess.spawn = require('cross-spawn');
+})();
 const record = require('node-record-lpcm16');
 
 // Imports the Google Cloud client library
@@ -25,6 +29,8 @@ const request = {
     }
 };
 
+
+
 // Create a recognize stream
 const recognizeStream = speech.createRecognizeStream(request)
     .on('error', console.error)
@@ -34,6 +40,7 @@ const recognizeStream = speech.createRecognizeStream(request)
 record.start({
     sampleRate: sampleRate,
     threshold: 0
-}).pipe(recognizeStream);
+})
+    .pipe(recognizeStream);
 
 console.log('Listening, press Ctrl+C to stop.');
